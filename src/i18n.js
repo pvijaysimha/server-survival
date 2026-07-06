@@ -17,8 +17,6 @@ class I18nManager {
     }
 
     setLocale(locale) {
-        console.log(locale);
-        console.log(this.translations);
         if (this.translations[locale]) {
             this.currentLocale = locale;
             localStorage.setItem('game_locale', locale);
