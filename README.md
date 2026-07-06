@@ -176,8 +176,14 @@ A fully customizable testing environment for experimenting with any architecture
 ## Getting Started
 
 1.  Clone the repository.
-2.  Open `index.html` in your modern web browser.
-3.  Start building your cloud empire!
+2.  Serve the folder with any simple local HTTP server:
+    ```bash
+    python3 -m http.server 8000
+    ```
+3.  Open `http://localhost:8000/` in your modern web browser.
+4.  Start building your cloud empire!
+
+You can also open `index.html` directly for a quick check, but serving the folder locally better matches the hosted experience and avoids browser quirks around local files.
 
 ## Community
 
