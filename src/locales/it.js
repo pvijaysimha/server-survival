@@ -299,6 +299,7 @@ const IT_TRANSLATIONS = {
     "step_x_of_y": "Passo {step} di {total}",
     "skip_tutorial": "Salta Tutorial",
     "next": "Avanti",
+    "tutorial_complete_action": "Completa l'azione evidenziata",
     "operator_manual": "MANUALE DELL'OPERATORE",
     "traffic_types": "TIPI DI TRAFFICO",
     "traffic_static_full": "STATICO (GET)",

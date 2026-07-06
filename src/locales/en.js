@@ -299,6 +299,7 @@ const EN_TRANSLATIONS = {
     "step_x_of_y": "Step {step} of {total}",
     "skip_tutorial": "Skip Tutorial",
     "next": "Next",
+    "tutorial_complete_action": "Complete highlighted action",
     "operator_manual": "OPERATOR MANUAL",
     "traffic_types": "TRAFFIC TYPES",
     "traffic_static_full": "STATIC (GET)",

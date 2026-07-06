@@ -300,6 +300,7 @@ const FR_TRANSLATIONS = {
     "step_x_of_y": "Étape {step} sur {total}",
     "skip_tutorial": "Passer le tutoriel",
     "next": "Suivant",
+    "tutorial_complete_action": "Terminez l'action surlignée",
     "operator_manual": "MANUEL OPÉRATEUR",
     "traffic_types": "TYPES DE TRAFIC",
     "traffic_static_full": "STATIC (GET)",

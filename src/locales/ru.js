@@ -300,6 +300,7 @@ const RU_TRANSLATIONS = {
     "step_x_of_y": "Шаг {step} из {total}",
     "skip_tutorial": "Пропустить обучение",
     "next": "Далее",
+    "tutorial_complete_action": "Выполните выделенное действие",
     "operator_manual": "РУКОВОДСТВО ОПЕРАТОРА",
     "traffic_types": "ТИПЫ ТРАФИКА",
     "traffic_static_full": "STATIC (GET)",

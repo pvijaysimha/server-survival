@@ -331,6 +331,7 @@ const PT_BR_TRANSLATIONS = {
     "step_x_of_y": "Passo {step} de {total}",
     "skip_tutorial": "Pular tutorial",
     "next": "Próximo",
+    "tutorial_complete_action": "Conclua a ação destacada",
     "save_game": "Salvar jogo",
     "restart_game": "Reiniciar jogo",
     "tool_delete_desc": "Remova componentes ou conexões. Receba 100% de reembolso nos componentes!",

@@ -330,6 +330,7 @@ const ZH_TRANSLATIONS = {
     "step_x_of_y": "第 {step} 步，共 {total} 步",
     "skip_tutorial": "跳过教程",
     "next": "下一步",
+    "tutorial_complete_action": "完成高亮操作",
     "save_game": "保存游戏",
     "restart_game": "重启游戏",
     "tool_delete_desc": "移除组件或连接。组件可获得 100% 退款！",

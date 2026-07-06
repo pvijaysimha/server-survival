@@ -177,6 +177,7 @@ class Tutorial {
         this.currentStep = 0;
         this.isActive = false;
         this.completedActions = new Set();
+        this.pendingAdvanceTimer = null;
         this.modal = document.getElementById('tutorial-modal');
         this.popup = document.getElementById('tutorial-popup');
         this.backdrop = document.getElementById('tutorial-backdrop');
@@ -252,15 +253,19 @@ class Tutorial {
 
         if (step.action === 'next' || step.action === 'finish') {
             this.nextBtn.classList.remove('hidden');
+            this.nextBtn.disabled = false;
             this.nextBtn.textContent = step.action === 'finish' ? i18n.t('tut_start_playing') : i18n.t('next');
         } else {
-            this.nextBtn.classList.add('hidden');
+            this.nextBtn.classList.remove('hidden');
+            this.nextBtn.disabled = true;
+            this.nextBtn.textContent = i18n.t('tutorial_complete_action');
         }
 
         this.clearHighlights();
         if (step.highlight) this.highlightElement(step.highlight);
         this.positionPopup(step);
         this.updateProgress();
+        this.syncCurrentAction();
     }
 
     highlightElement(elementId) {
@@ -400,10 +405,80 @@ class Tutorial {
         }
 
         if (actionMatches) {
-            this.completedActions.add(step.action);
-            setTimeout(() => {
+            this.completeCurrentAction(step);
+        }
+    }
+
+    completeCurrentAction(step) {
+        if (!step || this.completedActions.has(step.action)) return;
+
+        this.completedActions.add(step.action);
+        if (this.nextBtn) {
+            this.nextBtn.textContent = i18n.t('next');
+        }
+
+        if (this.pendingAdvanceTimer) clearTimeout(this.pendingAdvanceTimer);
+        this.pendingAdvanceTimer = setTimeout(() => {
+            const currentStep = getTutorialSteps()[this.currentStep];
+            if (this.isActive && currentStep?.action === step.action) {
                 this.nextStep();
-            }, 300);
+            }
+            this.pendingAdvanceTimer = null;
+        }, 300);
+    }
+
+    syncCurrentAction() {
+        const step = getTutorialSteps()[this.currentStep];
+        if (!step || step.action === 'next' || step.action === 'finish') return;
+        if (this.completedActions.has(step.action)) return;
+        if (this.isCurrentStepSatisfied(step)) {
+            this.completeCurrentAction(step);
+        }
+    }
+
+    isCurrentStepSatisfied(step) {
+        const services = STATE?.services || [];
+        const connections = STATE?.connections || [];
+        const hasService = (type) => services.some((service) => service.type === type);
+        const entityType = (id) => {
+            if (id === 'internet') return 'internet';
+            return services.find((service) => service.id === id)?.type;
+        };
+        const hasConnection = (fromType, toType) => connections.some((connection) =>
+            entityType(connection.from) === fromType && entityType(connection.to) === toType
+        );
+
+        switch (step.action) {
+            case 'place_waf':
+                return hasService('waf');
+            case 'place_alb':
+                return hasService('alb');
+            case 'place_compute':
+                return hasService('compute');
+            case 'place_s3':
+                return hasService('s3');
+            case 'place_db':
+                return hasService('db');
+            case 'place_cdn':
+                return hasService('cdn');
+            case 'connect_internet_waf':
+                return hasConnection('internet', 'waf');
+            case 'connect_waf_alb':
+                return hasConnection('waf', 'alb');
+            case 'connect_alb_compute':
+                return hasConnection('alb', 'compute');
+            case 'connect_compute_s3':
+                return hasConnection('compute', 's3');
+            case 'connect_compute_db':
+                return hasConnection('compute', 'db');
+            case 'connect_internet_cdn':
+                return hasConnection('internet', 'cdn');
+            case 'connect_cdn_s3':
+                return hasConnection('cdn', 's3');
+            case 'start_game':
+                return STATE?.timeScale > 0;
+            default:
+                return false;
         }
     }
 
@@ -413,6 +488,10 @@ class Tutorial {
 
     complete() {
         this.isActive = false;
+        if (this.pendingAdvanceTimer) {
+            clearTimeout(this.pendingAdvanceTimer);
+            this.pendingAdvanceTimer = null;
+        }
         this.clearHighlights();
         this.modal.classList.add('hidden');
         this.markCompleted();

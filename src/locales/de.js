@@ -300,6 +300,7 @@ const DE_TRANSLATIONS = {
     "step_x_of_y": "Schritt {step} von {total}",
     "skip_tutorial": "Tutorial überspringen",
     "next": "Weiter",
+    "tutorial_complete_action": "Markierte Aktion ausführen",
     "operator_manual": "OPERATOR HANDBUCH",
     "traffic_types": "TRAFFIC-TYPEN",
     "traffic_static_full": "STATISCH (GET)",

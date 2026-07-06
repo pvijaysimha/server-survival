@@ -278,6 +278,7 @@ const KO_TRANSLATIONS = {
     "step_x_of_y": "{step} / {total} 단계",
     "skip_tutorial": "튜토리얼 건너뛰기",
     "next": "다음",
+    "tutorial_complete_action": "강조된 작업을 완료하세요",
     "operator_manual": "운영자 매뉴얼",
     "traffic_types": "트래픽 유형",
     "traffic_static_full": "정적(STATIC, GET)",
